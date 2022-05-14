@@ -47,10 +47,13 @@ public class complaint {
 			 
 			 // close the connection
 			 con.close(); 
-			 output = "Complaint Created Successfully."; 
+			 
+			 String newItems = readcomplaints();
+			 output = "{\"status\":\"success\", \"data\": \"" +
+			 newItems + "\"}";
 			 }
 			 catch (Exception e) { 
-				 output = "Error while inserting complaint."; 
+				 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
 				 System.err.println(e.getMessage()); 
 				 
 			 } 
@@ -81,6 +84,8 @@ public class complaint {
 						"<th>Reply</th>" +
 						"<th>Status</th>" +
 						"<th>Date</th>" +
+						"<th>Update</th>" +
+						"<th>Delete</th>" +
 						"</tr>";
 						
 						String query = "select * from complaints";
@@ -100,7 +105,7 @@ public class complaint {
 							
 							
 							// Add into the html table
-							output += "<tr><td><input id='hidItemIDUpdate' name='hidcomplaintIDUpdate'type='hidden' value='" + complaintID + "'>" + accno + "</td>";
+							output += "<tr><td>"+ accno + "</td>";
 							output += "<td>" + complainttype + "</td>";
 							output += "<td>" + mobile + "</td>";
 							output += "<td>" + cmessage + "</td>";
@@ -109,14 +114,14 @@ public class complaint {
 							output += "<td>" + datentime + "</td>";
 							// buttons
 							
-							output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-warning btnUpdate\"></td>"
-									+ "<td><form method=\"post\" action=\"complaint.jsp\">"
-									+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-									+ "<input name=\"hidDoctorIDDelete\" type=\"hidden\" value=\"" + complaintID + "\">"
-									+ "</form></td></tr>";
+							output += "<td><input name='btnUpdate' type='button' value='Update' "
+									+ "class='btnUpdate btn btn-secondary' data-itemid='" + complaintID + "'></td>"
+									+ "<td><input name='btnRemove' type='button' value='Remove' "
+									+ "class='btnRemove btn btn-danger' data-itemid='" + complaintID + "'></td></tr>";
+									}
 							
 							
-						}
+						
 						con.close();
 						// Complete the html table
 						output += "</table>";
@@ -155,14 +160,17 @@ public class complaint {
 					// execute the statement
 					preparedStmt.execute();
 					con.close();
-					output = "Updated successfully";
-				}
-				catch (Exception e)
-				{
-					output = "Error while updating the item.";
-					System.err.println(e.getMessage());
-				}
-				return output;
+					
+					String newItems = readcomplaints();
+					 output = "{\"status\":\"success\", \"data\": \"" +
+					 newItems + "\"}";
+					 }
+					 catch (Exception e) { 
+						 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
+						 System.err.println(e.getMessage()); 
+						 
+					 } 
+					return output;
 			}	
 			
 		
@@ -219,13 +227,15 @@ public class complaint {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Deleted successfully";
-		}
-		catch (Exception e)
-		{
-			output = "Error while deleting the item(Reply to the complaint before deleting.).";
-			System.err.println(e.getMessage());
-		}
+			String newItems = readcomplaints();
+			 output = "{\"status\":\"success\", \"data\": \"" +
+			 newItems + "\"}";
+			 }
+			 catch (Exception e) { 
+				 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
+				 System.err.println(e.getMessage()); 
+				 
+			 } 
 			return output;
 		}
 		

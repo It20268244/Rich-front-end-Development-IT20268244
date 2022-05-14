@@ -13,6 +13,8 @@ if ($("#alertSuccess").text().trim() == "")
  }
  $("#alertError").hide();
 });
+
+
 // SAVE ============================================
 $(document).on("click", "#btnSave", function(event)
 {
@@ -31,13 +33,52 @@ if (status != true)
  return;
  }
 // If valid------------------------
- $("#formcomplaint").submit();
+var type = ($("#hidcomplaintIDSave").val() == "") ? "POST" : "PUT";
+$.ajax(
+{
+url : "complaintsAPI",
+type : type,
+data : $("#formItem").serialize(),
+dataType : "text",
+complete : function(response, status)
+{
+oncomplaintSaveComplete(response.responseText, status);
+}
 });
+
+function oncomplaintSaveComplete(response, status)
+{
+if (status == "success")
+{
+var resultSet = JSON.parse(response);
+if (resultSet.status.trim() == "success")
+{
+$("#alertSuccess").text("Successfully saved.");
+$("#alertSuccess").show();
+$("#divItemsGrid").html(resultSet.data);
+} else if (resultSet.status.trim() == "error")
+{
+$("#alertError").text(resultSet.data);
+$("#alertError").show();
+}
+} else if (status == "error")
+{
+$("#alertError").text("Error while saving.");
+$("#alertError").show();
+} else
+{
+$("#alertError").text("Unknown error while saving..");
+$("#alertError").show();
+}
+
+$("#hidItemIDSave").val("");
+$("#formItem")[0].reset();
+}
 
 // UPDATE===========================================
 $(document).on("click", ".btnUpdate", function(event)
 {
- $("#hidcomplaintIDSave").val($(this).closest("tr").find('#hidcomplaintIDUpdate').val());
+ $("#hidcomplaintIDSave").val($(this).data("complaintID"));
  $("#acc").val($(this).closest("tr").find('td:eq(0)').text());
  $("#D_Type").val($(this).closest("tr").find('td:eq(1)').text());
  $("#D_Contact_Number").val($(this).closest("tr").find('td:eq(2)').text());
@@ -45,6 +86,48 @@ $(document).on("click", ".btnUpdate", function(event)
  $("#D_reply").val($(this).closest("tr").find('td:eq(4)').text());
  $("#D_Status").val($(this).closest("tr").find('td:eq(5)').text());
 });
+
+
+
+$(document).on("click", ".btnRemove", function(event)
+{
+$.ajax(
+{
+url : "ItemsAPI",
+type : "DELETE",
+data : "itemID=" + $(this).data("itemid"),
+dataType : "text",
+complete : function(response, status)
+{
+oncomplaintDeleteComplete(response.responseText, status);
+}
+});
+});
+
+function oncomplaintDeleteComplete(response, status)
+{
+if (status == "success")
+{
+var resultSet = JSON.parse(response);
+if (resultSet.status.trim() == "success")
+{
+$("#alertSuccess").text("Successfully deleted.");
+$("#alertSuccess").show();
+$("#divItemsGrid").html(resultSet.data);
+} else if (resultSet.status.trim() == "error")
+{
+$("#alertError").text(resultSet.data);
+$("#alertError").show();
+}
+} else if (status == "error")
+{
+$("#alertError").text("Error while deleting.");
+$("#alertError").show();
+} else
+{
+$("#alertError").text("Unknown error while deleting..");
+$("#alertError").show();
+}
 
 // CLIENTMODEL=========================================================================
 function validatecomplaintForm()
@@ -78,6 +161,4 @@ if ($("#D_reply").val().trim() == "")
 
 
 return true;
-}/**
- * 
- */
+}

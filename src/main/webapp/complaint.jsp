@@ -5,41 +5,7 @@
     
 	<%@ page import="com.complaint" %>
     
-    <% 
-		//Save---------------------------------
-		if (request.getParameter("acc") != null) {
-			complaint d1 = new complaint();
-			String
-			stsMsg = "";
-			//Insert------------------------------
-			if (request.getParameter("hidcomplaintIDSave") == "") {
-				stsMsg = d1.Createcomplaint(request.getParameter("acc"),
-						request.getParameter("D_Type"), 
-						request.getParameter("D_Contact_Number"), 
-						request.getParameter("D_Address"),
-						request.getParameter("D_reply"),
-						request.getParameter("D_Status"));
-				
-			} else//Update----------------------
-			{
-				stsMsg = d1.updateComplaint(request.getParameter("hidcomplaintIDSave"),
-								request.getParameter("acc"),
-								request.getParameter("D_Type"), 
-								request.getParameter("D_Contact_Number"), 
-								request.getParameter("D_Address"),
-								request.getParameter("D_reply"),
-								request.getParameter("D_Status")); 
-								
-			}
-			session.setAttribute("statusMsg", stsMsg);
-		}
-		//Delete-------------------------------------------
-		if (request.getParameter("hidDoctorIDDelete") != null) {
-			complaint d1 = new complaint();
-			String stsMsg = d1.deletecomplaint(request.getParameter("hidDoctorIDDelete"));
-			session.setAttribute("statusMsg", stsMsg);
-		}
-	%>
+    
     
     
     
@@ -53,10 +19,10 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script type='text/javascript' src='./componenets/complaint.js'></script>
+  <script type='text/javascript' src='./componenets/hj.js'></script>
 </head>
 <body>
-	
+	<div class="container"><div class="row"><div class="col-6">
 	<form id="formcomplaint" name="formcomplaint" method="post" action="complaint.jsp">
 		Account Number: <input id="acc" name="acc" type="text"
 			class="form-control form-control-sm" required> <br> 
@@ -86,21 +52,22 @@
 	</form>
 	
 	
-	<div id"alertSuccess" class="alert alert-success">
+
+		<div id="alertSuccess" class="alert alert-success"></div>
+		<div id="alertError" class="alert alert-danger"></div>
 		<%
 		out.print(session.getAttribute("statusMsg"));
 		%>
-		</div>
+		
 	
-	
-	
-
-	<% 
+		<% 
 	     complaint d1=new complaint();
 	     out.print(d1.readcomplaints());
 	     %>
 	     
 	     
 	     <br><br>
+	     
+	     </div> </div> </div>
 </body>
 </html>
