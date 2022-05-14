@@ -53,7 +53,7 @@ public class complaint {
 			 newItems + "\"}";
 			 }
 			 catch (Exception e) { 
-				 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
+				 output = "{\"status\":\"error\", \"data\": \"Error while inserting complaint.\"}";
 				 System.err.println(e.getMessage()); 
 				 
 			 } 
@@ -105,7 +105,7 @@ public class complaint {
 							
 							
 							// Add into the html table
-							output += "<tr><td><input id=\'hidcomplaintIDUpdate\'name=\'hidHospitalIDUpdate\'type=\'hidden\' value=\'"
+							output += "<tr><td><input id=\'hidcomplaintIDUpdate\'name=\'hidcomplaintIDUpdate\'type=\'hidden\' value=\'"
 									+ complaintID + "\'>" + accno + "</td>";
 							output += "<td>" + complainttype + "</td>";
 							output += "<td>" + mobile + "</td>";
@@ -118,7 +118,7 @@ public class complaint {
 							output += "<td><input name='btnUpdate'type='button' "
 									+ "value='Update'class='btnUpdate btn btn-success'></td>"
 									+ "<td><input name='btnRemove'type='button' "
-									+ "value='Remove'class='btnRemove btn btn-danger'data-hospitalid='"+ complaintID + "'>" + "</td></tr>";
+									+ "value='Remove'class='btnRemove btn btn-danger'data-complaintid='"+ complaintID + "'>" + "</td></tr>";
 							
 									}
 							
@@ -130,7 +130,7 @@ public class complaint {
 					}
 			catch (Exception e)
 			{
-				output = "Error while reading the items.";
+				output = "Error while reading the complaint.";
 				System.err.println(e.getMessage());
 			}
 				return output;
@@ -163,12 +163,11 @@ public class complaint {
 					preparedStmt.execute();
 					con.close();
 					
-					String newItems = readcomplaints();
-					 output = "{\"status\":\"success\", \"data\": \"" +
-					 newItems + "\"}";
+					String newcomplaint = readcomplaints();
+					 output = "{\"status\":\"success\", \"data\": \"" +newcomplaint + "\"}";
 					 }
 					 catch (Exception e) { 
-						 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
+						 output = "{\"status\":\"error\", \"data\": \"Error while updating the complaint.\"}";
 						 System.err.println(e.getMessage()); 
 						 
 					 } 
@@ -176,39 +175,7 @@ public class complaint {
 			}	
 			
 		
-	/*	//update
-		public String updateComplaint(String ID,String c_reply,String C_status)
-		
-		{
-		String output = "";
-		try
-		{
-			Connection con = dbconn.connect(); 
-			if (con == null)
-			{
-				return "Error while connecting to the database for updating.";
-			}
-			// create a prepared statement
-			String query = "UPDATE complaints SET replyMessage=?,status=? WHERE complaintID=?";
-			PreparedStatement preparedStmt = con.prepareStatement(query);
-				// binding values
-
-				preparedStmt.setString(1, c_reply);
-				preparedStmt.setString(2, C_status);
-				preparedStmt.setInt(3, Integer.parseInt(ID));
-				// execute the statement
-				preparedStmt.execute();
-				con.close();
-				output = "Updated successfully";
-			}
-			catch (Exception e)
-			{
-				output = "Error while updating the item.";
-				System.err.println(e.getMessage());
-			}
-			return output;
-		}*/
-		
+	
 		
 		// Delete Operation
 		public String deletecomplaint(String complaintID)
@@ -234,7 +201,7 @@ public class complaint {
 			 newItems + "\"}";
 			 }
 			 catch (Exception e) { 
-				 output = "{\"status\":\"error\", \"data\": \"Error while deleting the item.\"}";
+				 output = "{\"status\":\"error\", \"data\": \"Check if replied before deleting (Error while deleting complaint).\"}";
 				 System.err.println(e.getMessage()); 
 				 
 			 } 
