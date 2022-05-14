@@ -26,7 +26,7 @@ public class complaintsAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 	
-	
+	//insert
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String output = complaintOBJ.Createcomplaint(request.getParameter("acc"),
 				request.getParameter("D_Type"), 
@@ -65,13 +65,13 @@ public class complaintsAPI extends HttpServlet {
 	return map;
 	}
 
-	
+//update	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Map paras = getParasMap(request);
 		String output = complaintOBJ.updateComplaint(paras.get("hidcomplaintIDSave").toString(),
-		paras.get("acc").toString().replace('+', ' '),
-		paras.get("D_Type").toString().replace('+', ' '),
+		paras.get("acc").toString(),
+		paras.get("D_Type").toString(),
 		paras.get("D_Contact_Number").toString(),
 		paras.get("D_Address").toString(),
 		paras.get("D_reply").toString(),
@@ -81,7 +81,7 @@ public class complaintsAPI extends HttpServlet {
 	
 	
 
-
+// delete
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Map paras = getParasMap(request);

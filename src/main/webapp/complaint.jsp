@@ -40,11 +40,11 @@
 				border: 1px solid black;
 				border-radius: 10px;
 				margin-bottom: 20px;
-				font-size: 15px;
+				font-size: 16px;
 				margin-top: 15px;
 				background-size: cover;
-				color: white;
-				font-weight: 900;
+				color: black;
+				font-weight: 700;
 				background-repeat: no-repeat ;
 			
 	
@@ -93,7 +93,7 @@
 									
 									</select> 	
 								<br><br>
-								<input id="btnSave" name="btnSave" type="submit" value="Save" class="btn btn-primary"> 
+								<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary"> 
 								<input type="hidden" id="hidcomplaintIDSave" name="hidcomplaintIDSave" value="">
 						</form>
 					</div>
