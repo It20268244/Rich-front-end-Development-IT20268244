@@ -89,7 +89,7 @@ $.ajax(
 {
 url : "complaintsAPI",
 type : "DELETE",
-data : "complaintID=" + $(this).data("complaintID"),
+data : "complaintID=" + $(this).data("complaintid"),
 dataType : "text",
 complete : function(response, status)
 {
@@ -155,4 +155,6 @@ if ($("#D_reply").val().trim() == "")
 
 
 return true;
-}
+}/**
+ * 
+ */

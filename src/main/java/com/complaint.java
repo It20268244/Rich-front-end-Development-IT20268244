@@ -105,7 +105,8 @@ public class complaint {
 							
 							
 							// Add into the html table
-							output += "<tr><td>"+ accno + "</td>";
+							output += "<tr><td><input id=\'hidcomplaintIDUpdate\'name=\'hidHospitalIDUpdate\'type=\'hidden\' value=\'"
+									+ complaintID + "\'>" + accno + "</td>";
 							output += "<td>" + complainttype + "</td>";
 							output += "<td>" + mobile + "</td>";
 							output += "<td>" + cmessage + "</td>";
@@ -114,10 +115,11 @@ public class complaint {
 							output += "<td>" + datentime + "</td>";
 							// buttons
 							
-							output += "<td><input name='btnUpdate' type='button' value='Update' "
-									+ "class='btnUpdate btn btn-secondary' data-itemid='" + complaintID + "'></td>"
-									+ "<td><input name='btnRemove' type='button' value='Remove' "
-									+ "class='btnRemove btn btn-danger' data-itemid='" + complaintID + "'></td></tr>";
+							output += "<td><input name='btnUpdate'type='button' "
+									+ "value='Update'class='btnUpdate btn btn-success'></td>"
+									+ "<td><input name='btnRemove'type='button' "
+									+ "value='Remove'class='btnRemove btn btn-danger'data-hospitalid='"+ complaintID + "'>" + "</td></tr>";
+							
 									}
 							
 							
@@ -232,7 +234,7 @@ public class complaint {
 			 newItems + "\"}";
 			 }
 			 catch (Exception e) { 
-				 output = "{\"status\":\"error\", \"data\": \"Error while inserting the item.\"}";
+				 output = "{\"status\":\"error\", \"data\": \"Error while deleting the item.\"}";
 				 System.err.println(e.getMessage()); 
 				 
 			 } 

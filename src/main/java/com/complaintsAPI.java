@@ -36,6 +36,8 @@ public class complaintsAPI extends HttpServlet {
 				request.getParameter("D_Address"),
 				request.getParameter("D_reply"),
 				request.getParameter("D_Status"));
+		
+		System.out.println(request.getParameter("acc")+" "+request.getParameter("D_Type")+" "+request.getParameter("D_Contact_Number")+" "+request.getParameter("D_Address")+" "+request.getParameter("D_reply")+" "+request.getParameter("D_Status"));
 				response.getWriter().write(output);
 	
 	
@@ -70,8 +72,8 @@ public class complaintsAPI extends HttpServlet {
 		
 		Map paras = getParasMap(request);
 		String output = complaintOBJ.updateComplaint(paras.get("hidcomplaintIDSave").toString(),
-		paras.get("acc").toString(),
-		paras.get("D_Type").toString(),
+		paras.get("acc").toString().replace('+', ' '),
+		paras.get("D_Type").toString().replace('+', ' '),
 		paras.get("D_Contact_Number").toString(),
 		paras.get("D_Address").toString(),
 		paras.get("D_reply").toString(),
