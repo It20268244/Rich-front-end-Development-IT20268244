@@ -48,9 +48,9 @@ public class complaint {
 			 // close the connection
 			 con.close(); 
 			 
-			 String newItems = readcomplaints();
+			 String newcomplaint= readcomplaints();
 			 output = "{\"status\":\"success\", \"data\": \"" +
-			 newItems + "\"}";
+			 newcomplaint + "\"}";
 			 }
 			 catch (Exception e) { 
 				 output = "{\"status\":\"error\", \"data\": \"Error while inserting complaint.\"}";
